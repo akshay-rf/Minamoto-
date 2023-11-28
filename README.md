@@ -101,5 +101,3 @@ Contributions are welcome! Please follow these steps to contribute:
 
 This project is licensed under the [MIT License](https://github.com/akshay-rf/Minamoto-/blob/main/LICENSE).
 
-----------
-
