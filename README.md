@@ -1,9 +1,4 @@
-<br>
-<p align="center">
-  <img src="https://fontmeme.com/permalink/231128/6358bae003a72e975f4361219146d2f9.png" alt="Library Logo" width="300" height="50">
-</p>
-
-# Library Management System
+# Minamoto源
 
 Welcome to the Minamoto Library Management System! This system provides an easy-to-use platform for users to explore the library's collection, borrow books, manage loans, and more.
 
@@ -74,21 +69,21 @@ This will set up the necessary files and dependencies to run the Minamoto源 Lib
 -   **Command-Line Interface (CLI):**
     -   Administrators can use the command-line interface to add, edit, and delete books and users in the database.
     -  Usage: 
-		    ```bash
-		    python admin.py [OPTIONS] COMMAND [ARGS]...	
-		    ``` 
+	    ```bash
+	    python admin.py [OPTIONS] COMMAND [ARGS]...	
+	    ``` 
     - Options:
-		    ```bash
-		    --help  - Show help and exit.
-		    ```
+	    ```bash
+	    --help  - Show help and exit.
+	    ```
     - Commands:
-		    ```bash
-		    add-book - Add a new book to the database.
-		    add-user - Add a new user to the database.
-		    delete-book - Delete a book from the database.
-		    delete-user - Delete a user from the database.
-		    edit-book - Edit an existing book in the database.
-		    ```
+	    ```bash
+	    add-book - Add a new book to the database.
+	    add-user - Add a new user to the database.
+	    delete-book - Delete a book from the database.
+	    delete-user - Delete a user from the database.
+	    edit-book - Edit an existing book in the database.
+	    ```
 
 
 
