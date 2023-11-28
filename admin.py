@@ -20,7 +20,7 @@ def cli():
 @click.option('--tags', prompt='Tags(seperated by space)', help='Tags for the book')
 def add_book(title, author, category, tags):
     """Add a new book to the database."""
-    new_book = Book(title=title, author=author, category=category, tags=tags.split(), status='Available')
+    new_book = Book(title=title, author=author, category=category, tags=tags.split(), status='available')
     session.add(new_book)
     session.commit()
     click.echo(f'Book "{title}" by {author} added successfully.')
