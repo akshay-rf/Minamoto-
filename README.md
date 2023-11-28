@@ -39,8 +39,8 @@ Welcome to the Minamoto Library Management System! This system provides an easy-
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/library-management-system.git
-   cd library-management-system
+   git clone https://github.com/akshay-rf/Minamoto-.git
+   cd Minamoto-
    ```
 2. **Install dependencies:**
 	```bash
@@ -51,9 +51,9 @@ Welcome to the Minamoto Library Management System! This system provides an easy-
    -   Open the `__init__.py` script in `/website` folder.
   -   Locate the placeholder `'DB_NAME'` and replace it with the actual URI of your database.
 4. **Run the script:**
-		```bash
-		python main.py
-		```
+	```bash
+	python main.py
+	```
 
 This will set up the necessary files and dependencies to run the Minamoto源 Library Management System.
 
@@ -74,21 +74,21 @@ This will set up the necessary files and dependencies to run the Minamoto源 Lib
 -   **Command-Line Interface (CLI):**
     -   Administrators can use the command-line interface to add, edit, and delete books and users in the database.
     -  Usage: 
-	    ```bash
-	    python admin.py [OPTIONS] COMMAND [ARGS]...	
-	    ``` 
+		    ```bash
+		    python admin.py [OPTIONS] COMMAND [ARGS]...	
+		    ``` 
     - Options:
-	    ```bash
-	    --help  - Show help and exit.
-	    ```
+		    ```bash
+		    --help  - Show help and exit.
+		    ```
     - Commands:
-	    ```bash
-	    add-book - Add a new book to the database.
-	    add-user - Add a new user to the database.
-	    delete-book - Delete a book from the database.
-	    delete-user - Delete a user from the database.
-	    edit-book - Edit an existing book in the database.
-	    ```
+		    ```bash
+		    add-book - Add a new book to the database.
+		    add-user - Add a new user to the database.
+		    delete-book - Delete a book from the database.
+		    delete-user - Delete a user from the database.
+		    edit-book - Edit an existing book in the database.
+		    ```
 
 
 
@@ -104,7 +104,7 @@ Contributions are welcome! Please follow these steps to contribute:
 
 ## 📝 License
 
-This project is licensed under the [MIT License](https://chat.openai.com/c/LICENSE).
+This project is licensed under the [MIT License](https://github.com/akshay-rf/Minamoto-/blob/main/LICENSE).
 
 ----------
 
