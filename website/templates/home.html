@@ -1,0 +1,146 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %}
+{% block content %}
+{% if count==0 %}
+<br>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Oops!</strong> Book not available.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+{% endif %}
+<br>
+<form class="d-flex justify-content-around" role="search" method="POST">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" id="Search" name="Search" type="search" placeholder="Search" aria-label="Search">
+        <select class="btn btn-outline-secondary" aria-label="filter" id="filter" name="filter">
+            <option selected value="all">All</option>
+            <option value="title">Title</option>
+            <option value="author">Author</option>
+            <option value="category">Category</option>
+        </select>
+      </div>
+    <button for="filter" class="btn btn-outline-success idek" type="submit">Search</button>
+</form>
+
+<form method="POST">
+    {% if searched %}
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <strong>Result</strong>
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <div class="row">
+                    {% for book in books %}
+                            {% if book.status == 'available' %}
+                                    <div class="col-sm-6 mb-3 mb-sm-0 top-buffer">
+                                        <div class="card">
+                                            <div class="card-body">
+                                            <h5 class="card-title">{{book.title}}</h5>
+                                            <p class="card-text">{{book.category}}</p>
+                                            <p class="card-text">{{'By '+book.author}}</p>
+                                            <a href={{'/borrow/%s'%book.bid|urlencode}} class="btn btn-primary" type="submit" name={{book.bid}}>Borrow</a>
+                                            </div>
+                                        </div>
+                                        </div>
+                            {% endif %}
+                        {% endfor %}
+                 </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="accordion" id="accordionExample">
+        {% if recommend %}
+            <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <strong>More {{comName}} books (for {{user.firstName}})</strong>
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="row">
+                        {% for book in recomBook %}
+                                {% if book.status == 'available' %}
+                                        <div class="col-sm-6 mb-3 mb-sm-0 top-buffer">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                <h5 class="card-title">{{book.title}}</h5>
+                                                <p class="card-text">{{book.category}}</p>
+                                                <p class="card-text">{{'By '+book.author}}</p>
+                                                <a href={{'/borrow/%s'%book.bid|urlencode}} class="btn btn-primary" type="submit" name={{book.bid}}>Borrow</a>
+                                                </div>
+                                            </div>
+                                            </div>
+                                {% endif %}
+                            {% endfor %}
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <strong>All Books</strong>
+                  </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                      <div class="row">
+                          {% for book in books %}
+                                  {% if book.status == 'available' %}
+                                          <div class="col-sm-6 mb-3 mb-sm-0 top-buffer">
+                                              <div class="card">
+                                                  <div class="card-body">
+                                                  <h5 class="card-title">{{book.title}}</h5>
+                                                  <p class="card-text">{{book.category}}</p>
+                                                  <p class="card-text">{{'By '+book.author}}</p>
+                                                  <a href={{'/borrow/%s'%book.bid|urlencode}} class="btn btn-primary" type="submit" name={{book.bid}}>Borrow</a>
+                                                  </div>
+                                              </div>
+                                              </div>
+                                  {% endif %}
+                              {% endfor %}
+                       </div>
+                  </div>
+                </div>
+              </div>
+        {% else %}
+            <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <strong>All books</strong>
+                </button>
+            </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="row">
+                            {% for book in books %}
+                                    {% if book.status == 'available' %}
+                                            <div class="col-sm-6 mb-3 mb-sm-0 top-buffer">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                    <h5 class="card-title">{{book.title}}</h5>
+                                                    <p class="card-text">{{book.category}}</p>
+                                                    <p class="card-text">{{'By '+book.author}}</p>
+                                                    <a href={{'/borrow/%s'%book.bid|urlencode}} class="btn btn-primary" type="submit" name={{book.bid}}>Borrow</a>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                    {% endif %}
+                                {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                </div>
+        {% endif %}
+      </div>
+      {% endif %}
+</form>
+
+ 
+{% endblock %}  

@@ -1,0 +1,110 @@
+{% extends "base.html" %} {% block title %}Loans{% endblock %}
+{% block content %}
+<form method="POST">
+    <br>
+    <h2 align="center">Loans</h2>
+    <br>
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <strong>Active</strong>
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                {% set i = 0 %}
+              {% for trans in loans.query.filter(loans.user==user.id) %}
+              {% set book = books.query.filter(books.bid==transactions.query.filter(transactions.tid==trans.transID).first().bookId).first()%}
+              {% set transaction = transactions.query.filter(transactions.tid==trans.transID).first() %}
+              {% set dueDate = transaction.time + timedelta(int(transaction.due)) %}
+              {% set daysLeft = dueDate.date() - date.today() %}
+              <form method="POST">
+              <div class="card">
+                <h5 class="card-header">Expires in {{daysLeft.days}} days</h5>
+                <div class="card-body">
+                  <h5 class="card-title">{{book.title}}</h5>
+                  <p class="card-text">by {{book.author}}</p>
+                  <input type="hidden" for={{"ideki"+str(i)}} id={{"idek"+str(i)}} name={{"idek"+str(i)}} value={{book.bid}}>
+                  <input name={{"ideki"+str(i)}} id={{"ideki"+str(i)}} type="submit" class="btn btn-primary" value="Return">
+                </div>
+              </div>
+              </form>
+              <br>
+              {% set i = i+1 %}
+              {% endfor %}
+              {% if loans.query.filter(loans.user==user.id).count()==0 %}
+              No Active Loans
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              <strong>Expired</strong>
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                {% set i = 0 %}
+                {% for trans in exploans.query.filter(exploans.user==user.id) %}
+                {% set book = books.query.filter(books.bid==transactions.query.filter(transactions.tid==trans.transID).first().bookId).first()%}
+                {% set transaction = transactions.query.filter(transactions.tid==trans.transID).first() %}
+                {% set dueDate = transaction.time + timedelta(int(transaction.due)) %}
+                {% set daysLeft = date.today() - dueDate.date() %}
+                {% set fine = daysLeft.days * 100 %}
+                <form method="POST">
+                <div class="card">
+                  <h5 class="card-header">{{daysLeft.days}} days over due - <strong>Rs. {{fine}} </strong> </h5>
+                  <div class="card-body">
+                    <h5 class="card-title">{{book.title}}</h5>
+                    <p class="card-text">by {{book.author}}</p>
+                    <input type="hidden" for={{"udeki"+str(i)}} id={{"udek"+str(i)}} name={{"udek"+str(i)}} value={{book.bid}}>
+                    <input name={{"udeki"+str(i)}} id={{"udeki"+str(i)}} type="submit" class="btn btn-primary" value="Pay">
+                  </div>
+                </div>
+                </form>
+                <br>
+                {% set i = i+1 %}
+                {% endfor %}
+                {% if exploans.query.filter(exploans.user==user.id).count()==0 %}
+                No Expired Loans
+                {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              <strong>History</strong>
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                {% set i = 0 %}
+                {% for trans in transact.query.filter(transact.userId==user.id) %}
+                {% set book = books.query.filter(books.bid==trans.bookId).first()%}
+                {% set date = trans.time %}
+                <form method="POST">
+                <div class="card">
+                  <div class="card-header">returned {{date}}.</div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{book.title}}</h5>
+                    <p class="card-text">by {{book.author}}</p>
+                  </div>
+                </div>
+                </form>
+                <br>
+                {% set i = i+1 %}
+                {% endfor %}
+                {% if transact.query.filter(transact.userId==user.id).count()==0 %}
+                No Transactions Made.
+                {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+</form>
+
+{% endblock %}

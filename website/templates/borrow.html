@@ -1,0 +1,79 @@
+{% extends "base.html" %} {% block title %}Borrow{% endblock %}
+{% block content %}
+{% set book = books.query.filter(books.bid==bbid).first() %}
+<br>
+<h2 align="center">Loan Portal</h2>
+<br>
+<form method="POST" action={{'/%s'%bbid|urlencode}}>
+<div class="card text-center">
+    <div class="card-header">
+      {{book.category}}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{book.title}}</h5>
+      <p class="card-text">By {{book.author}}</p>
+      <input class="form-control form-control-lg" type="text" placeholder="Contact Email" aria-label=".form-control-lg example" value={{user.email}}>
+      <br>
+      <div class="row g-2">
+        <div class="col-md">
+            <div class="form-floating mb-3">
+                <input type="email" readonly class="form-control-plaintext" id="floatingPlaintextInput" placeholder="name@example.com" value={{date.today()}}>
+                <label for="floatingPlaintextInput">Date</label>
+            </div>
+        </div>
+        <div class="col-md">
+          <div class="form-floating">
+            <select class="form-select" id="days" name="days">
+              <option selected name="num2" id="2" value="2">2</option>
+              {% for i in range(3,16) %}
+              <option name={{'num'+str(i)}} id={{i}} value={{i}}>{{i}}</option>
+              {% endfor %}
+            </select>
+            <label for="days">Number of days</label>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Minamoto源 Library
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div class="accordion-body" align="left">
+              Loans from Minamoto源 Library’s collections are free of charge. The loan period is normally 15 days. There may be restrictions due to material type or library unit. A loan can be renewed if there is no reservation on it. The maximum loan period is 28 days for students, 180 days for staff. For external borrowers maximum loan period is 15 days. 
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Responsibility of the borrower
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body" align="left">
+              <ul>
+              <li>All documents that are taken out of the Library are to be registered as a loan.</li>
+              <li>The borrower is personally responsible for everything registered as a loan on his/her library card.</li>
+              <li>Documents that are borrowed from the Library cannot be loaned to a third party.</li>
+              <li>Loans are to be returned by the expiry date of the loan period.</li>
+              <li>Making notes in documents is considered as damaging them.</li>
+              <li>Documents that are lost or damaged must be replaced in accordance with the Library’s regulations and charges.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br> 
+      <button for="days" class="btn btn-primary" type="submit">Confirm Loan</button>   
+    </div>
+    <div class="card-footer text-body-secondary">
+      Issued to {{user.firstName}}
+    </div>
+  </div>
+</form>
+
+{% endblock %}
